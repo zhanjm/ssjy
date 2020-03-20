@@ -1,5 +1,5 @@
 server:
-  port: 7799
+  port: 7798
   servlet:
     context-path: /ssjy
   tomcat:
@@ -9,7 +9,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ssjy?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
     username: test
-    password: test
+    password: test123..
     #driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
