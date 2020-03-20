@@ -14,14 +14,16 @@ import java.util.Set;
 public class Role {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//strategy = GenerationType.IDENTITY 自增策略数据库中自动生成hibernate_sequence表
+    @Column(name = "role_id",columnDefinition="BIGINT COMMENT '权限编号'")
     private Long roleId;
+    @Column(name = "role_name",columnDefinition="VARCHAR(256) NOT NULL COMMENT '权限名称'")
     private String roleName;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "role_permission",
-            joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "roleId")},
-            inverseJoinColumns = {@JoinColumn(name = "PERMISSION_ID", referencedColumnName = "permissionId")})
+            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "permission_id")})
     private Set<Permission> permissions;
 
 

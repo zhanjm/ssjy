@@ -1,9 +1,12 @@
 package com.ssjy.auth;
 
 import com.google.gson.Gson;
+import com.ssjy.common.HttpContextUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,6 +22,7 @@ public class AuthFilter extends AuthenticatingFilter {
 
     /**
      * 生成自定义token
+     *
      * @param request
      * @param response
      * @return
@@ -36,6 +40,7 @@ public class AuthFilter extends AuthenticatingFilter {
 
     /**
      * 步骤1.所有请求全部拒绝访问
+     *
      * @param request
      * @param response
      * @param mappedValue
@@ -51,6 +56,7 @@ public class AuthFilter extends AuthenticatingFilter {
 
     /**
      * 步骤2，拒绝访问的请求，会调用onAccessDenied方法，onAccessDenied方法先获取 token，再调用executeLogin方法
+     *
      * @param request
      * @param response
      * @return
@@ -58,10 +64,13 @@ public class AuthFilter extends AuthenticatingFilter {
      */
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+        Subject currentUser = SecurityUtils.getSubject();
+
         //获取请求token，如果token不存在，直接返回
         String token = getRequestToken((HttpServletRequest) request);
         if (StringUtils.isBlank(token)) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
+            httpResponse.setContentType("application/json;charset=utf-8");
             httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
             httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtils.getOrigin());
             httpResponse.setCharacterEncoding("UTF-8");
@@ -74,6 +83,7 @@ public class AuthFilter extends AuthenticatingFilter {
         }
         return executeLogin(request, response);
     }
+
     /**
      * 登陆失败时候调用
      */
@@ -96,6 +106,7 @@ public class AuthFilter extends AuthenticatingFilter {
         }
         return false;
     }
+
     /**
      * 获取请求的token
      */
