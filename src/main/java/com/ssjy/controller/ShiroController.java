@@ -21,7 +21,7 @@ public class ShiroController {
             result.put("status","404");
             result.put("msg","账号或密码有误");
         }else{
-            result = shiroService.createToken(user.getId());
+            result = shiroService.createToken(user.getUserId());
             result.put("status","200");
             result.put("msg","登录成功");
         }
