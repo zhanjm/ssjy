@@ -38,10 +38,17 @@ public class ShiroConfig {
         filterMap.put("/webjars/**", "anon");
         filterMap.put("/druid/**", "anon");
         filterMap.put("/sys/login", "anon");
+        filterMap.put("/login", "anon");
+        filterMap.put("/index", "anon");
         filterMap.put("/swagger/**", "anon");
         filterMap.put("/v2/api-docs", "anon");
         filterMap.put("/swagger-ui.html", "anon");
         filterMap.put("/swagger-resources/**", "anon");
+        filterMap.put("/static/**", "anon");
+        //filterMap.put("/css/**", "anon");
+        //filterMap.put("/js/**", "anon");
+        //filterMap.put("/bootstrap/**", "anon");
+
         filterMap.put("/**", "auth");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
         //这里不需要设置什么登陆路径之类的

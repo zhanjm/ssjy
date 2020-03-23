@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class ShiroServiceImpl implements ShiroService {
+public class   ShiroServiceImpl implements ShiroService {
 
     private Logger logger = LoggerFactory.getLogger(ShiroServiceImpl.class);
 
